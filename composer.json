@@ -1,5 +1,5 @@
 {
-    "name": "gwnobots/laravel-head",
+    "name": "swisnl/laravel-head",
     "description": "Customize and automate head section of your layouts for Laravel",
     "keywords": ["laravel", "layout", "html5", "meta", "stylesheets", "scripts", "facebook", "twitter", "analytics"],
     "license": "MIT",
