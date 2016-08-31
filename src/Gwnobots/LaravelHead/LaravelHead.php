@@ -340,6 +340,15 @@ class LaravelHead {
 		$this->title = $title;
 	}
 
+	/**
+	 * Check if a title is already set
+	 *
+	 * @return bool
+	 */
+	public function hasTitle()
+	{
+		return (bool) $this->title;
+	}
 
 /* =============================
 	DESCRIPTION META TAG
