@@ -41,12 +41,12 @@ class LaravelHeadServiceProvider extends ServiceProvider {
 	 */
 	public function register()
 	{
-		$this->app['laravel-head'] = $this->app->share(function($app)
-		{
-			return new LaravelHead;
-		});
+        $this->app->bind('laravel-head', function($app)
+        {
+            return new LaravelHead;
+        }, true);
 
-		$this->app->booting(function()
+        $this->app->booting(function()
 		{
 			$loader = \Illuminate\Foundation\AliasLoader::getInstance();
 			$loader->alias('Head', 'Gwnobots\LaravelHead\LaravelHeadFacade');
