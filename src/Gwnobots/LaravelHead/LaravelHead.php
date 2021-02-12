@@ -1,9 +1,11 @@
 <?php namespace Gwnobots\LaravelHead;
 
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
+use Illuminate\Support\Str;
 
 class LaravelHead {
 
@@ -641,9 +643,9 @@ class LaravelHead {
 		{
 			foreach ($val as $value => $content)
 			{
-				if (starts_with($value, 'og:') || starts_with($value, 'fb:'))
+				if (Str::startsWith($value, 'og:') || Str::startsWith($value, 'fb:'))
 				{
-					$this->meta['property'] = array_except($this->meta['property'], array($value));
+					$this->meta['property'] = Arr::except($this->meta['property'], array($value));
 				}
 			}
 		}
@@ -751,9 +753,9 @@ class LaravelHead {
 		{
 			foreach ($val as $value => $content)
 			{
-				if (starts_with($value, 'twitter:') || starts_with($value, 'twitter:'))
+				if (Str::startsWith($value, 'twitter:'))
 				{
-					$this->meta['name'] = array_except($this->meta['name'], array($value));
+					$this->meta['name'] = Arr::except($this->meta['name'], array($value));
 				}
 			}
 		}
@@ -996,7 +998,7 @@ class LaravelHead {
 	{
 		foreach ($css as $file => $options)
 		{
-			$this->stylesheets = array_add($this->stylesheets, $file, $options);
+			$this->stylesheets = Arr::add($this->stylesheets, $file, $options);
 		}
 	}
 
@@ -1107,7 +1109,7 @@ class LaravelHead {
 	{
 		foreach ($script as $file => $options)
 		{
-			$this->scripts = array_add($this->scripts, $file, $options);
+			$this->scripts = Arr::add($this->scripts, $file, $options);
 		}
 	}
 
