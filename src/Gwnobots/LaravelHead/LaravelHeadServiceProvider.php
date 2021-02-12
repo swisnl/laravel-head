@@ -1,6 +1,5 @@
 <?php namespace Gwnobots\LaravelHead;
 
-use Illuminate\Foundation\Application;
 use Illuminate\Support\ServiceProvider;
 
 class LaravelHeadServiceProvider extends ServiceProvider {
@@ -19,19 +18,12 @@ class LaravelHeadServiceProvider extends ServiceProvider {
 	 */
 	public function boot()
 	{
-		if(preg_match('/^4/',Application::VERSION))
-		{
-			$this->package('gwnobots/laravel-head');
-		}
-		else 
-		{
-			$configPath = __DIR__.'/../../config/config.php';
-			$this->publishes([
-				$configPath => config_path('laravel-head.php'),
-			]);
-			
-			$this->mergeConfigFrom($configPath, 'laravel-head');
-		}
+        $configPath = __DIR__.'/../../config/config.php';
+        $this->publishes([
+            $configPath => config_path('laravel-head.php'),
+        ]);
+
+        $this->mergeConfigFrom($configPath, 'laravel-head');
 	}
 
 	/**

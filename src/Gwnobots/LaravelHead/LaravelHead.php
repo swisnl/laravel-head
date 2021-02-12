@@ -4,8 +4,7 @@ use App;
 use Config;
 use File;
 use URL;
-use Illuminate\Foundation\Application;
- 
+
 class LaravelHead {
 
 /**
@@ -17,72 +16,72 @@ class LaravelHead {
 
 	/**
 	 * The value for meta charset tag
-	 * 
+	 *
 	 * @var string
-	 */ 
+	 */
 	protected $charset;
 
 	/**
 	 * The value for title tag
-	 * 
+	 *
 	 * @var string
-	 */ 
+	 */
 	protected $title;
 
 	/**
 	 * The value for description meta tag
-	 * 
+	 *
 	 * @var string
-	 */ 
+	 */
 	protected $description;
 
 	/**
 	 * The name of favicon file(s)
-	 * 
+	 *
 	 * @var string
-	 */ 
+	 */
 	protected $favicon;
 
 	/**
 	 * Contains all meta tags
-	 * 
+	 *
 	 * @var array
-	 */ 
+	 */
 	protected $meta = array();
 
 	/**
 	 * Contains all link tags
-	 * 
+	 *
 	 * @var array
 	 */
 	protected $link = array();
 
 	/**
 	 * Contains all stylesheets
-	 * 
+	 *
 	 * @var array
-	 */ 
+	 */
 	protected $stylesheets = array();
 
 	/**
 	 * Contains all scripts
-	 * 
+	 *
 	 * @var array
-	 */ 
+	 */
 	protected $scripts = array();
 
 	/**
 	 * Contains all additional items
-	 * 
+	 *
 	 * @var array
-	 */ 
+	 */
 	protected $misc = array();
-	
+
 	/**
 	 * Package name for accessing config
-	 * 
+	 *
 	 * @var string
-	 */ 
+	 */
 	protected $configNamePrefix = 'laravel-head';
 
 
@@ -96,15 +95,7 @@ class LaravelHead {
 		$this->meta['name'] = array();
 		$this->meta['http-equiv'] = array();
 		$this->meta['property'] = array();
-		
-		if(preg_match('/^4/',Application::VERSION))
-		{
-			$this->configNamePrefix .= '::';
-		}
-		else
-		{
-			$this->configNamePrefix .= '.';
-		}
+        $this->configNamePrefix .= '.';
 	}
 
 
@@ -116,7 +107,7 @@ class LaravelHead {
 	 * Set a value for layout to use other settings than default for current request.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function setLayout($layout)
 	{
 		$this->layout = $layout;
@@ -131,7 +122,7 @@ class LaravelHead {
 	 * Get an item from config, returning default one if custom is null. Blank is considered as not null.
 	 *
 	 * @return string|bool
-	 */ 
+	 */
 	protected function getConfig($item)
 	{
 		// Get config item value for a custom layout if it exists, even if blank
@@ -156,7 +147,7 @@ class LaravelHead {
 	 * Set an item for current request in default config if custom is null, else in custom config.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function setConfig($item, $value)
 	{
 		// Set config item value for a custom layout if it exists
@@ -182,10 +173,10 @@ class LaravelHead {
 	 * Empty values don't return any tag.
 	 *
 	 * @return string
-	 */ 
+	 */
 	public function render()
 	{
-		return 
+		return
 			$this->tagCharset().
 			$this->tagTitle().
 			$this->tagDescription().
@@ -204,12 +195,12 @@ class LaravelHead {
 	 * Render meta charset tag.
 	 *
 	 * @return string
-	 */ 
+	 */
 	protected function tagCharset()
 	{
 		// Get the default value in config file if not manually defined
 		$charset = ($this->charset) ? $this->charset : $this->getConfig('charset');
-		
+
 		// Don't return any tag if value is empty
 		if ($charset)
 		{
@@ -219,11 +210,11 @@ class LaravelHead {
 
 	/**
 	 * Manually set a value for meta charset tag for the current request.
-	 * 
+	 *
 	 * @param string $charset
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function setCharset($charset)
 	{
 		$this->charset = $charset;
@@ -238,7 +229,7 @@ class LaravelHead {
 	 * Render title tag.
 	 *
 	 * @return string
-	 */ 
+	 */
 	protected function tagTitle()
 	{
 		// Get the complete value for title
@@ -255,7 +246,7 @@ class LaravelHead {
 	 * Return the complete value for title.
 	 *
 	 * @return string
-	 */ 
+	 */
 	protected function renderTitle()
 	{
 		// Get default value for site name
@@ -263,7 +254,7 @@ class LaravelHead {
 
 		// Value for title, site name if not defined
 		$title = ($this->title) ? $this->title : $sitename;
-		
+
 		// Get default separator value
 		$separator = $this->getConfig('title.separator');
 
@@ -281,19 +272,19 @@ class LaravelHead {
 			{
 				return $sitename;
 			}
-			
+
 			// No site name is defined
 			elseif (!$sitename)
 			{
 				return $title;
 			}
-			
+
 			// No title is defined
 			elseif (!$title)
 			{
 				return $sitename;
 			}
-		
+
 			// Get complete title
 			else
 			{
@@ -312,7 +303,7 @@ class LaravelHead {
 	 * Activate Site Name for the current request.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function doSitename()
 	{
 		$this->setConfig('title.show_sitename', true);
@@ -322,7 +313,7 @@ class LaravelHead {
 	 * Deactivate Site Name for the current request.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function noSitename()
 	{
 		$this->setConfig('title.show_sitename', false);
@@ -330,7 +321,7 @@ class LaravelHead {
 
 	/**
 	 * Manually set a value for the title for the current request.
-	 * 
+	 *
 	 * @param string $title
 	 *
 	 * @return void
@@ -339,7 +330,7 @@ class LaravelHead {
 	{
 		$this->title = $title;
 	}
-	
+
 	/**
 	 * Check if a title is already set
 	 *
@@ -375,7 +366,7 @@ class LaravelHead {
 
 	/**
 	 * Manually set a value for description for the current request.
-	 * 
+	 *
 	 * @param string $description
 	 *
 	 * @return void
@@ -394,7 +385,7 @@ class LaravelHead {
 	 * Render all meta tags.
 	 *
 	 * @return string
-	 */ 
+	 */
 	protected function tagMeta()
 	{
 		// Initialize string
@@ -443,7 +434,7 @@ class LaravelHead {
 	 * Register several meta tags.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function addMeta($meta = array())
 	{
 		foreach ($meta as $type => $value)
@@ -456,7 +447,7 @@ class LaravelHead {
 	 * Register only one meta tag.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function addOneMeta($type, $value, $content)
 	{
 		$this->addMeta(array($type => array($value => $content)));
@@ -466,7 +457,7 @@ class LaravelHead {
 	 * Register robots meta tag.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function addRobots()
 	{
 		// Check for production mode
@@ -480,7 +471,7 @@ class LaravelHead {
 	 * Register IE Edge meta tag.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function addIeEdge()
 	{
 		// Check if option is active
@@ -518,7 +509,7 @@ class LaravelHead {
 	 * Register Viewport meta tag for responsive design.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function addResponsive()
 	{
 		// Check if option is active
@@ -556,7 +547,7 @@ class LaravelHead {
 	 * Register Open Graph meta tags.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function addFacebook()
 	{
 		// Get default Site Name
@@ -643,7 +634,7 @@ class LaravelHead {
 	 * Remove all Open Graph tags set manually.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function killFacebook()
 	{
 		foreach ($this->meta as $type => $val)
@@ -682,7 +673,7 @@ class LaravelHead {
 	 * Register Twitter Card meta tags.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function addTwitter()
 	{
 		// Get value for title tag
@@ -753,7 +744,7 @@ class LaravelHead {
 	 * Remove all Twitter Card tags set manually.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function killTwitter()
 	{
 		foreach ($this->meta as $type => $val)
@@ -797,7 +788,7 @@ class LaravelHead {
 	 * Render all link tags.
 	 *
 	 * @return string
-	 */ 
+	 */
  	protected function tagLink()
 	{
 		// Initialize string
@@ -865,7 +856,7 @@ class LaravelHead {
 	 * Register several link tags.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function addLink($link = array())
 	{
 		$this->link = array_merge($this->link, $link);
@@ -875,7 +866,7 @@ class LaravelHead {
 	 * Register only one link tag.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function addOneLink($rel, $href, $type = '', $attr = array(), $cond = '')
 	{
 		$this->addLink(array(array($rel, $href, $type, $attr, $cond)));
@@ -885,7 +876,7 @@ class LaravelHead {
 	 * Register link tags for favicon.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function addFavicon()
 	{
 		// Get the default value in config file if not manually defined
@@ -913,7 +904,7 @@ class LaravelHead {
 	 * Manually set a value for favicon.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function setFavicon($favicon)
 	{
 		$this->favicon = $favicon;
@@ -923,7 +914,7 @@ class LaravelHead {
 	 * Register link tags for stylesheets.
 	 *
 	 * @return void
-	 */ 
+	 */
 	protected function addStyleSheets()
 	{
 		// Initialize string for .css path
@@ -1000,7 +991,7 @@ class LaravelHead {
 	 * Register several stylesheets.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function addCss($css = array())
 	{
 		foreach ($css as $file => $options)
@@ -1013,7 +1004,7 @@ class LaravelHead {
 	 * Register only one stylesheet.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function addOneCss($file, $media = '', $cond = '')
 	{
 		$this->addCss(array($file => array($media, $cond)));
@@ -1027,7 +1018,7 @@ class LaravelHead {
 	 * Render all scripts.
 	 *
 	 * @return string
-	 */ 
+	 */
 	protected function tagScript()
 	{
 		// Initialize string
@@ -1111,7 +1102,7 @@ class LaravelHead {
 	 * Register several scripts.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function addScript($script = array())
 	{
 		foreach ($script as $file => $options)
@@ -1124,7 +1115,7 @@ class LaravelHead {
 	 * Register only one script.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function addOneScript($file, $load = '', $cond = '')
 	{
 		$this->addScript(array($file => array($load, $cond)));
@@ -1139,7 +1130,7 @@ class LaravelHead {
 	 * Render all additional items.
 	 *
 	 * @return string
-	 */ 
+	 */
 	protected function tagMisc()
 	{
 		// Initialize string
@@ -1165,7 +1156,7 @@ class LaravelHead {
 	 * Register additional items.
 	 *
 	 * @return void
-	 */ 
+	 */
 	public function addMisc($tag)
  	{
  		// Register several items
@@ -1188,7 +1179,7 @@ class LaravelHead {
 	 * Register conditional script for IE compatibility with HTML5.
 	 *
 	 * @return void
-	 */ 
+	 */
  	protected function addShiv()
  	{
  		// Check if option is active
@@ -1222,7 +1213,7 @@ class LaravelHead {
 	 * Register analytics script.
 	 *
 	 * @return void
-	 */ 
+	 */
  	protected function addAnalytics()
  	{
  		// Get Product ID value from config file
